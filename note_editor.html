@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>C Note-将网页内容添加到md笔记</title>
+  <link rel="stylesheet" href="note_editor.css">
+  <link rel="stylesheet" href="editormd/css/editormd.css" />
+</head>
+
+<body>
+  <!-- <h1>C Note</h1> -->
+  <div id="editor">
+    <textarea id="note" style="display:none;"></textarea>
+  </div>
+  <!-- <button id="save">保存</button> -->
+  <select id="exportFormat">
+    <option value="md">导出 .md 格式</option>
+    <option value="pdf">导出 .pdf 格式</option>
+    <option value="html">导出 .html 格式</option>
+    <option value="docx">导出 .docx 格式</option>
+    <option value="txt">导出 .txt 格式</option>
+  </select>
+  <button id="exportNote">导出</button>
+  <!-- <button id="save-to-cloud">保存到云【需要登录-付费内容】</button> -->
+  <a href="https://note.youdao.com/help-center/advance_markdown.html" target="_blank">Markdown笔记使用指南</a>
+  <script src="jquery.min.js"></script>
+  <script src="editormd/editormd.min.js"></script>
+  <script src="editormd/languages/en.js"></script>
+  
+  <!-- 导出 -->
+  <script src="export/FileSaver.min.js"></script>
+  <script src="export/html-docx.js"></script>
+  <script src="export/html2canvas.min.js"></script>
+  <script src="export/jspdf.umd.min.js"></script>
+
+  <script src="note_editor.js"></script>
+</body>
+
+</html>
