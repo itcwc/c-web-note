@@ -14,8 +14,8 @@
 
 * 截图
   * 侧键
-    ![侧键](/images/readme1.png)
+    ![侧键](http://itcwc.com//data/image/2024/08/09/45925_2t6h_3379.png)
   * 编辑器
-    ![编辑器](/images/readme2.png)
+    ![编辑器](http://itcwc.com//data/image/2024/08/09/45934_ejh7_1789.png)
   * 基础介绍
-    ![基础介绍](/images/readme3.png)
+    ![基础介绍](http://itcwc.com//data/image/2024/08/09/45947_bk04_7027.png)
