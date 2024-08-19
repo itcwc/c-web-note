@@ -1,7 +1,7 @@
 {
     "manifest_version": 3,
     "name": "C Note-将网页内容添加到md笔记",
-    "version": "0.5",
+    "version": "0.51",
     "description": "右键单击选中的内容，然后选择“添加内容到新笔记”即可将内容添加到侧边笔记中。",
     "permissions": [
         "activeTab",
@@ -12,7 +12,7 @@
         "notifications"
     ],
     "background": {
-        "service_worker": "background.js"
+        "service_worker": "js/background.js"
     },
     "action": {
         "default_popup": "popup.html",

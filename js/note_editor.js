@@ -36,7 +36,7 @@ $(function () {
 function createNotification(title, message) {
   chrome.notifications.create({
     type: "basic",
-    iconUrl: "images/icon128.png", // Ensure this path is correct
+    iconUrl: "../images/icon128.png", // Ensure this path is correct
     title: title,
     message: message,
   });
@@ -51,8 +51,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // 添加笔记
   chrome.runtime.onMessage.addListener((message) => {
+
+    if (message.action === "saveImageToNote") {
+      const imageUrl = message.imageUrl;
+      const pageUrl = message.pageUrl;
+      const imageMarkdown = `![网页图片](${imageUrl})\n[来源链接-原始网页【如需保存请手动下载】](${pageUrl})\n`;
+      // 将图片的 Markdown 格式插入到编辑器中
+      editor.insertValue(imageMarkdown);
+    }
+
     if (message.addToExisting) {
-      console.log(message.selectedText);
       noteTextarea.value += `\n${message.selectedText}`;
       editor.setMarkdown(noteTextarea.value);
     }
@@ -111,8 +119,9 @@ document.addEventListener("DOMContentLoaded", () => {
         break;
 
       case "docx":
-        
-        var converted = htmlDocx.asBlob('<meta charset="UTF-8">'+renderedContent);
+        var converted = htmlDocx.asBlob(
+          '<meta charset="UTF-8">' + renderedContent
+        );
         saveAs(converted, "note.docx");
         break;
 
@@ -151,7 +160,6 @@ function parseHtmlToParagraphs(html) {
 
   return paragraphs;
 }
-
 
 // document.getElementById("save-to-cloud").addEventListener("click", () => {
 //   createNotification("开发中敬请期待", "开发中敬请期待V1.0");
