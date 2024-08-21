@@ -33,15 +33,6 @@ $(function () {
   });
 });
 
-function createNotification(title, message) {
-  chrome.notifications.create({
-    type: "basic",
-    iconUrl: "../images/icon128.png", // Ensure this path is correct
-    title: title,
-    message: message,
-  });
-}
-
 document.addEventListener("DOMContentLoaded", () => {
   // 笔记
   const params = new URLSearchParams(window.location.search);
@@ -51,29 +42,36 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // 添加笔记
   chrome.runtime.onMessage.addListener((message) => {
-
-    if (message.action === "saveImageToNote") {
-      const imageUrl = message.imageUrl;
-      const pageUrl = message.pageUrl;
-      const imageMarkdown = `![网页图片](${imageUrl})\n[来源链接-原始网页【如需保存请手动下载】](${pageUrl})\n`;
-      // 将图片的 Markdown 格式插入到编辑器中
-      editor.insertValue(imageMarkdown);
-    }
-
-    if (message.addToExisting) {
-      noteTextarea.value += `\n${message.selectedText}`;
-      editor.setMarkdown(noteTextarea.value);
-    }
+    // 获取当前语言
+    chrome.storage.sync.get('language', (result) => {
+      const currentLanguage = result.language || 'en'; // 默认语言为 'en'
+  
+      // 加载对应语言的消息文件
+      fetch(chrome.runtime.getURL(`_locales/${currentLanguage}/messages.json`))
+        .then(response => response.json())
+        .then(messages => {
+          // 获取本地化的消息
+          const copyImageText = messages.copy_image?.message || '网页图片';
+          const sourceLinkText = messages.source_link?.message || '来源链接_原始网页【如需保存请手动下载】';
+  
+          // 处理消息
+          if (message.action === "saveImageToNote") {
+            const imageUrl = message.imageUrl;
+            const pageUrl = message.pageUrl;
+            const imageMarkdown = `![${copyImageText}](${imageUrl})\n[${sourceLinkText}](${pageUrl})\n`;
+  
+            // 将图片的 Markdown 格式插入到编辑器中
+            editor.insertValue(imageMarkdown);
+          }
+  
+          if (message.addToExisting) {
+            noteTextarea.value += `\n${message.selectedText}`;
+            editor.setMarkdown(noteTextarea.value);
+          }
+        })
+        .catch(error => console.error('Error loading language file:', error));
+    });
   });
-
-  // 保存按钮
-  // document.getElementById('save').addEventListener('click', () => {
-  //   const noteContent = noteTextarea.value;
-  //   // 在这里实现保存笔记的逻辑，例如保存到本地存储或发送到服务器
-  //   console.log('Note saved:', noteContent);
-  //   createNotification("保存笔记代码！")
-  //   window.close();
-  // });
 
   // 导出
   const exportNote = () => {
@@ -161,6 +159,51 @@ function parseHtmlToParagraphs(html) {
   return paragraphs;
 }
 
-// document.getElementById("save-to-cloud").addEventListener("click", () => {
-//   createNotification("开发中敬请期待", "开发中敬请期待V1.0");
-// });
+document.getElementById("save-to-cloud").addEventListener("click", () => {
+  createNotification("warning", "in_development");
+});
+
+// 语言设置
+function updateContent(language) {
+  fetch(chrome.runtime.getURL(`_locales/${language}/messages.json`))
+    .then((response) => response.json())
+    .then((messages) => {
+      document.getElementById("title").textContent =
+        messages.note_editor_title.message;
+      document.getElementById("md").textContent = messages.md.message;
+      document.getElementById("pdf").textContent = messages.pdf.message;
+      document.getElementById("html").textContent = messages.html.message;
+      document.getElementById("docx").textContent = messages.docx.message;
+      document.getElementById("txt").textContent = messages.txt.message;
+      document.getElementById("exportNote").textContent =
+        messages.exportNote.message;
+      document.getElementById("user_manual").textContent =
+        messages.user_manual.message;
+    })
+    .catch((error) => console.error("Error loading language file:", error));
+}
+
+chrome.storage.sync.get("language", function (data) {
+  const language = data.language || "en";
+  updateContent(language);
+});
+
+function createNotification(notificationType, messageKey) {
+  chrome.storage.sync.get("language", function (data) {
+    const currentLanguage = data.language || "en"; // 默认使用英语
+    // 加载对应语言的消息文件
+    fetch(chrome.runtime.getURL(`../_locales/${currentLanguage}/messages.json`))
+      .then((response) => response.json())
+      .then((messages) => {
+        // 获取本地化的消息
+        const message = messages[messageKey]?.message || messageKey;
+
+        chrome.notifications.create({
+          type: "basic",
+          iconUrl: "../images/icon128.png", // 确保路径正确
+          title: notificationType,
+          message: message,
+        });
+      });
+  });
+}

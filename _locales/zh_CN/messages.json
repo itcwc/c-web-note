@@ -1,0 +1,91 @@
+{
+    "name": {
+        "message": "c note 将网页内容添加到md笔记"
+    },
+    "description": {
+        "message": "右键单击选中的内容，然后选择“添加内容到新笔记”即可将内容添加到侧边笔记中。"
+    },
+    "description1": {
+        "message": "欢迎使用 c note 扩展程序！"
+    },
+    "description2": {
+        "message": "此扩展程序允许您在浏览网页时选中内容并将其添加到笔记中。"
+    },
+    "description3": {
+        "message": "右键单击选中的内容，然后选择“添加内容到新笔记”即可将内容添加到笔记中。"
+    },
+    "description4": {
+        "message": "同时支持 导出.md、.pdf、.html、.docx、.txt或保存到线上【支持云同步】"
+    },
+    "forced_copy": {
+        "message": "强制复制"
+    },
+    "new_note": {
+        "message": "新建笔记"
+    },
+    "save_to_cloud": {
+        "message": "保存到云"
+    },
+    "setting": {
+        "message": "c note 设置"
+    },
+    "current_language": {
+        "message": "当前语言：中文"
+    },
+    "select_language": {
+        "message": "选择语言"
+    },
+    "copy_content_title": {
+        "message": "c note 当前网页内容"
+    },
+    "note_editor_title": {
+        "message": "c note 将网页内容添加到md笔记"
+    },
+    "md": {
+        "message": "导出 .md 格式"
+    },
+    "pdf": {
+        "message": "导出 .pdf 格式"
+    },
+    "html": {
+        "message": "导出 .html 格式"
+    },
+    "docx": {
+        "message": "导出 .docx 格式"
+    },
+    "txt": {
+        "message": "导出 .txt 格式"
+    },
+    "exportNote": {
+        "message": "导出"
+    },
+    "user_manual": {
+        "message": "Markdown笔记使用指南"
+    },
+    "in_development": {
+        "message": "开发中敬请期待V1.0"
+    },
+    "copy_image": {
+        "message": "网页图片"
+    },
+    "source_link": {
+        "message": "来源链接_原始网页【如需保存请手动下载】"
+    },
+    "add_to_notes": {
+        "message": "添加内容到新笔记"
+    },
+    "add_to_existing_note": {
+        "message": "添加内容到现有笔记"
+    },
+    "save_image_to_notes": {
+        "message": "保存图片到现有笔记"
+    },
+    "warning": {
+        "message": "请先选中内容。如无内容，可以使用新建笔记项~"
+    },
+    "warning1": {
+        "message": "请先打开笔记编辑器~"
+    }
+
+
+}

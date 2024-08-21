@@ -2,20 +2,31 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>C Note</title>
+    <title class="name">c note 将网页内容添加到md笔记</title>
     <link rel="stylesheet" type="text/css" href="css/popup.css">
 </head>
 <body>
-    <div id="info">
-        <h2>C Note</h2>
-        <p>欢迎使用 C Note 扩展程序！</p>
-        <p>此扩展程序允许您在浏览网页时选中内容并将其添加到笔记中。</p>
-        <p>右键单击选中的内容，然后选择“添加内容到新笔记”即可将内容添加到笔记中。</p>
-        <p>同时支持 导出.md、.pdf、.html、.docx、.txt或保存到线上【支持云同步】</p>
+
+    <div id="settings-container">
+        <button id="settings-btn">
+            <img src="images/gear-icon.png" alt="Settings" id="settings-icon">
+        </button>
     </div>
-    <!-- <button id="forced-copy">破解复制</button> -->
+
+
+    <div id="info">
+        <h3 class="name">c note 将网页内容添加到md笔记</h3>
+        <p class="description-text">欢迎使用 c note 扩展程序！</p>
+        <p class="description-text">此扩展程序允许您在浏览网页时选中内容并将其添加到笔记中。</p>
+        <p class="description-text">右键单击选中的内容，然后选择“添加内容到新笔记”即可将内容添加到笔记中。</p>
+        <p class="description-text">同时支持 导出.md、.pdf、.html、.docx、.txt或保存到线上【支持云同步】</p>
+    </div>
+
+
+    <button id="forced-copy">强制复制</button>
     <button id="new-note">新建笔记</button>
-    <!-- <button id="save-to-cloud">保存到云【需要登录-付费内容】</button> -->
+    <button id="save-to-cloud">登录到云</button>
+        
     <script src="js/popup.js"></script>
 </body>
 </html>

@@ -1,3 +1,25 @@
+body{
+    font-size: 12px;
+}
+
 #info {
-    width: 500px;
+    width: 300px;
+}
+
+#settings-container {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+#settings-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+}
+
+#settings-icon {
+    width: 20px;
+    height: 20px;
 }

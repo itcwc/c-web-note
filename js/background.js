@@ -1,35 +1,56 @@
-chrome.runtime.onInstalled.addListener(() => {
-  chrome.contextMenus.create({
-    id: "new-note",
-    title: "新建笔记",
-    contexts: ["all"],
-  });
-  chrome.contextMenus.create({
-    id: "add-to-notes",
-    title: "添加内容到新笔记",
-    contexts: ["all"],
-  });
-  chrome.contextMenus.create({
-    id: "add-to-existing-note",
-    title: "添加内容到现有笔记",
-    contexts: ["all"],
-  });
-  // 添加新的右键菜单项用于保存图片到 MD 笔记
-});
-chrome.contextMenus.create({
-  id: "save-image-to-notes",
-  title: "保存图片到现有笔记",
-  contexts: ["image"],
-});
+// 动态更新右键菜单
+function updateContextMenu(language) {
+  // 移除现有菜单
+  chrome.contextMenus.removeAll(() => {
+    // 通过 fetch 加载对应语言的消息文件
+    fetch(chrome.runtime.getURL(`_locales/${language}/messages.json`))
+      .then(response => response.json())
+      .then(messages => {
+        const getLocalizedText = (key) => messages[key]?.message || key;
 
-function createNotification(title, message) {
-  chrome.notifications.create({
-    type: "basic",
-    iconUrl: "../images/icon128.png", // Ensure this path is correct
-    title: title,
-    message: message,
+        chrome.contextMenus.create({
+          id: "new-note",
+          title: getLocalizedText("new_note"),
+          contexts: ["all"],
+        });
+        chrome.contextMenus.create({
+          id: "add-to-notes",
+          title: getLocalizedText("add_to_notes"),
+          contexts: ["all"],
+        });
+        chrome.contextMenus.create({
+          id: "add-to-existing-note",
+          title: getLocalizedText("add_to_existing_note"),
+          contexts: ["all"],
+        });
+        chrome.contextMenus.create({
+          id: "save-image-to-notes",
+          title: getLocalizedText("save_image_to_notes"),
+          contexts: ["image"],
+        });
+      })
+      .catch(error => console.error('Error loading language file:', error));
   });
 }
+
+// 初始创建菜单
+chrome.runtime.onInstalled.addListener(() => {
+  chrome.storage.sync.get('language', (result) => {
+    const currentLanguage = result.language || 'en'; // 默认语言为 'en'
+    updateContextMenu(currentLanguage);
+  });
+});
+
+// 监听配置文件变化
+chrome.storage.onChanged.addListener((changes, area) => {
+  if (area === 'sync' && changes.language) {
+    const newLanguage = changes.language.newValue || 'en';
+    updateContextMenu(newLanguage);
+  }
+});
+
+
+
 
 chrome.contextMenus.onClicked.addListener((info, tab) => {
   const selectedText = info.selectionText;
@@ -69,11 +90,8 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
   // 添加内容到新笔记
   if (info.menuItemId === "add-to-notes") {
     if (selectedText == null) {
-      createNotification(
-        "warning",
-        "请先选中内容。如无内容，可以使用新建笔记项~"
-      );
-      return
+      createNotification("warning", "warning");
+      return;
     }
 
     chrome.windows.getCurrent({ populate: true }, (currentWindow) => {
@@ -112,18 +130,15 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
   // 添加内容到现有笔记
   if (info.menuItemId === "add-to-existing-note") {
     if (selectedText == null) {
-      createNotification(
-        "warning",
-        "请先选中内容。如无内容，可以使用新建笔记项~"
-      );
-      return
+      createNotification("warning", "warning");
+      return;
     }
 
     chrome.storage.local.get("editorWindowId", (result) => {
       if (!result.editorWindowId) {
-        createNotification("warning", "请先打开笔记编辑器~");
+        createNotification("warning", "warning1");
       }
-      return
+      return;
     });
 
     chrome.runtime.sendMessage({
@@ -137,9 +152,9 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
     const pageUrl = info.pageUrl;
     chrome.storage.local.get("editorWindowId", (result) => {
       if (!result.editorWindowId) {
-        createNotification("warning", "请先打开笔记编辑器~");
+        createNotification("warning", "warning1");
       }
-      return
+      return;
     });
 
     // 发送消息到 note_editor.html 以保存图片信息
@@ -150,3 +165,23 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
     });
   }
 });
+
+function createNotification(notificationType, messageKey) {
+  chrome.storage.sync.get("language", function (data) {
+    const currentLanguage = data.language || "en"; // 默认使用英语
+    // 加载对应语言的消息文件
+    fetch(chrome.runtime.getURL(`../_locales/${currentLanguage}/messages.json`))
+      .then((response) => response.json())
+      .then((messages) => {
+        // 获取本地化的消息
+        const message = messages[messageKey]?.message || messageKey;
+
+        chrome.notifications.create({
+          type: "basic",
+          iconUrl: "../images/icon128.png", // 确保路径正确
+          title: notificationType,
+          message: message,
+        });
+      });
+  });
+}

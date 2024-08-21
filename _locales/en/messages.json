@@ -1,0 +1,89 @@
+{
+    "name": {
+        "message": "c note Add Web Page Content to MD Note"
+    },
+    "description": {
+        "message": "Right_click on the selected content and choose 'Add Content to New Note' to add the content to the side note."
+    },
+    "description1": {
+        "message": "Welcome to the c note extension!"
+    },
+    "description2": {
+        "message": "This extension allows you to select content while browsing and add it to your notes."
+    },
+    "description3": {
+        "message": "Right_click on the selected content and choose 'Add Content to New Note' to add the content to the note."
+    },
+    "description4": {
+        "message": "Also supports exporting to .md, .pdf, .html, .docx, .txt formats or saving online (supports cloud synchronization)."
+    },
+    "forced_copy": {
+        "message": "Force Copy"
+    },
+    "new_note": {
+        "message": "New Note"
+    },
+    "save_to_cloud": {
+        "message": "Save to Cloud"
+    },
+    "setting": {
+        "message": "c note Settings"
+    },
+    "current_language": {
+        "message": "Current Language:english"
+    },
+    "select_language": {
+        "message": "Select Language"
+    },
+    "copy_content_title": {
+        "message": "c note Current Web Page Content"
+    },
+    "note_editor_title": {
+        "message": "c note Add Web Page Content to MD Note"
+    },
+    "md": {
+        "message": "Export as .md"
+    },
+    "pdf": {
+        "message": "Export as .pdf"
+    },
+    "html": {
+        "message": "Export as .html"
+    },
+    "docx": {
+        "message": "Export as .docx"
+    },
+    "txt": {
+        "message": "Export as .txt"
+    },
+    "exportNote": {
+        "message": "Export"
+    },
+    "user_manual": {
+        "message": "Markdown Note User Guide"
+    },
+    "in_development": {
+        "message": "In Development _ Coming Soon V1.0"
+    },
+    "copy_image": {
+        "message": "Web Page Image"
+    },
+    "source_link": {
+        "message": "Source Link _ Original Web Page (Please download manually if needed)"
+    },
+    "add_to_notes": {
+        "message": "Add Content to New Note"
+    },
+    "add_to_existing_note": {
+        "message": "Add Content to Existing Note"
+    },
+    "save_image_to_notes": {
+        "message": "Save Image to Existing Note"
+    },
+    "warning": {
+        "message": "Please select content first. If there's no content, you can use the New Note option."
+    },
+    "warning1": {
+        "message": "Please open the note editor first."
+    }
+}
