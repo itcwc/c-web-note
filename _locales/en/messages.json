@@ -33,7 +33,7 @@
         "message": "Current Language:english"
     },
     "select_language": {
-        "message": "Select Language"
+        "message": "Select Language:"
     },
     "copy_content_title": {
         "message": "c note Current Web Page Content"

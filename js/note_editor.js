@@ -1,9 +1,12 @@
 // 编辑器
 var editor;
 $(function () {
+  // 编辑器初始化
   const params = new URLSearchParams(window.location.search);
+
+
   editor = editormd("editor", {
-    height: params.get("height") * 0.8,
+    height: params.get("height") * 0.9,
     path: "editormd/lib/",
     toolbarIcons: function () {
       return [
@@ -31,6 +34,30 @@ $(function () {
     },
     saveHTMLToTextarea: true,
   });
+  
+
+  // 加载语言文件
+  chrome.storage.sync.get("language", (result) => {
+    var editLanguage = result.language || "zh-cn";
+    var path = "../editormd/languages/";
+    if (editLanguage == "zh_CN") {
+      editLanguage = "zh-cn";
+    }
+    editormd.loadScript(path + editLanguage, function () {
+      editor.lang = editormd.defaults.lang;
+      // editor.recreate();
+    });
+  });
+
+  // 检测窗口大小变化并调整编辑器高度
+  $(window).resize(function () {
+    if (editor) {
+      const newHeight = $(window).height() * 0.9;
+      if (editor && editor.editor) {
+        $(editor.editor).css("height", newHeight + "px");
+      }
+    }
+  });
 });
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -43,33 +70,35 @@ document.addEventListener("DOMContentLoaded", () => {
   // 添加笔记
   chrome.runtime.onMessage.addListener((message) => {
     // 获取当前语言
-    chrome.storage.sync.get('language', (result) => {
-      const currentLanguage = result.language || 'en'; // 默认语言为 'en'
-  
+    chrome.storage.sync.get("language", (result) => {
+      const currentLanguage = result.language || "en"; // 默认语言为 'en'
+
       // 加载对应语言的消息文件
       fetch(chrome.runtime.getURL(`_locales/${currentLanguage}/messages.json`))
-        .then(response => response.json())
-        .then(messages => {
+        .then((response) => response.json())
+        .then((messages) => {
           // 获取本地化的消息
-          const copyImageText = messages.copy_image?.message || '网页图片';
-          const sourceLinkText = messages.source_link?.message || '来源链接_原始网页【如需保存请手动下载】';
-  
+          const copyImageText = messages.copy_image?.message || "网页图片";
+          const sourceLinkText =
+            messages.source_link?.message ||
+            "来源链接_原始网页【如需保存请手动下载】";
+
           // 处理消息
           if (message.action === "saveImageToNote") {
             const imageUrl = message.imageUrl;
             const pageUrl = message.pageUrl;
             const imageMarkdown = `![${copyImageText}](${imageUrl})\n[${sourceLinkText}](${pageUrl})\n`;
-  
+
             // 将图片的 Markdown 格式插入到编辑器中
             editor.insertValue(imageMarkdown);
           }
-  
+
           if (message.addToExisting) {
             noteTextarea.value += `\n${message.selectedText}`;
             editor.setMarkdown(noteTextarea.value);
           }
         })
-        .catch(error => console.error('Error loading language file:', error));
+        .catch((error) => console.error("Error loading language file:", error));
     });
   });
 
@@ -177,6 +206,8 @@ function updateContent(language) {
       document.getElementById("txt").textContent = messages.txt.message;
       document.getElementById("exportNote").textContent =
         messages.exportNote.message;
+      document.getElementById("save-to-cloud").textContent =
+        messages.save_to_cloud.message;
       document.getElementById("user_manual").textContent =
         messages.user_manual.message;
     })
@@ -207,3 +238,8 @@ function createNotification(notificationType, messageKey) {
       });
   });
 }
+
+// 打开设置
+document.getElementById("settings-btn").addEventListener("click", () => {
+  chrome.runtime.openOptionsPage();
+});

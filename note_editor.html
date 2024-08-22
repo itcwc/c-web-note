@@ -1,34 +1,46 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh">
 
 <head>
-  <meta charset="UTF-8">
+  <meta charset="utf-8" />
   <title id="title">c note 将网页内容添加到md笔记</title>
   <link rel="stylesheet" href="css/note_editor.css">
   <link rel="stylesheet" href="editormd/css/editormd.css" />
 </head>
 
 <body>
+
+
   <!-- <h1>c note</h1> -->
   <div id="editor">
     <textarea id="note" style="display:none;"></textarea>
   </div>
   <!-- <button id="save">保存</button> -->
-  <select id="exportFormat">
-    <option id="md" value="md">导出 .md 格式</option>
-    <option id="pdf" value="pdf">导出 .pdf 格式</option>
-    <option id="html" value="html">导出 .html 格式</option>
-    <option id="docx" value="docx">导出 .docx 格式</option>
-    <option id="txt" value="txt">导出 .txt 格式</option>
-  </select>
-  <button id="exportNote">导出</button>
-  <button id="save-to-cloud">保存到云</button>
-  
-  <a href="https://note.youdao.com/help-center/advance_markdown.html" target="_blank" id="user_manual">Markdown笔记使用指南</a>
+  <div id="export-controls">
+    <select id="exportFormat">
+      <option id="md" value="md">导出 .md 格式</option>
+      <option id="pdf" value="pdf">导出 .pdf 格式</option>
+      <option id="html" value="html">导出 .html 格式</option>
+      <option id="docx" value="docx">导出 .docx 格式</option>
+      <option id="txt" value="txt">导出 .txt 格式</option>
+    </select>
+    <button id="exportNote">导出</button>
+    <button id="save-to-cloud">保存到云</button>
+
+    <div id="settings-container">
+      <button id="settings-btn">
+        <img src="images/gear-icon.png" alt="Settings" id="settings-icon">
+      </button>
+    </div>
+
+    <a href="https://note.youdao.com/help-center/advance_markdown.html" target="_blank"
+      id="user_manual">Markdown笔记使用指南</a>
+
+  </div>
+
   <script src="js/jquery.min.js"></script>
   <script src="editormd/editormd.min.js"></script>
-  <script src="editormd/languages/en.js"></script>
-  
+
   <!-- 导出 -->
   <script src="export/FileSaver.min.js"></script>
   <script src="export/html-docx.js"></script>

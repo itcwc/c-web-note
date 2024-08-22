@@ -1,24 +1,51 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="UTF-8">
     <title>c note 设置</title>
+    <link rel="stylesheet" href="editormd/css/editormd.css" />
 </head>
+
 <body>
     <h1 id="setting">c note 设置</h1>
-
+    <hr>
     <div id="language-info">
-        <p id="current_language">当前语言: <span>Loading...</span> </p> 
+        <p id="current_language">当前语言: <span>Loading...</span> </p>
     </div>
-
+    <!-- 语言设置 -->
     <label id="select_language" for="languageSelect">选择语言：</label>
     <select id="languageSelect">
         <option value="en">English</option>
         <option value="zh_CN">中文</option>
         <!-- 添加更多语言选项 -->
     </select>
+    <hr>
+    <!-- 主题设置 -->
+    <div class="themes">
+        <p>主题：
+            <select id="editormd-theme-select">
+                <option selected="selected" value="">select Editor.md themes</option>
+            </select>
+            <select id="editor-area-theme-select">
+                <option selected="selected" value="">select editor area themes</option>
+            </select>
+            <select id="preview-area-theme-select">
+                <option selected="selected" value="">select preview area themes</option>
+            </select>
+        </p>
+    </div>
+    <div id="test-editormd">
+        <textarea style="display:none;"># 这里是一些主题设置</textarea>
+    </div>
+    <hr>
+
+
+    <script src="js/jquery.min.js"></script>
+    <script src="editormd/editormd.min.js"></script>
 
     <script src="js/options.js"></script>
-</body>
-</html>
 
+</body>
+
+</html>
