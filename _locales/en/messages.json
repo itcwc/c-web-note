@@ -85,5 +85,29 @@
     },
     "warning1": {
         "message": "Please open the note editor first."
+    },
+    "background_color_label": {
+        "message": "Select background color:"
+    },
+    "white_black_theme": {
+        "message": "White background with black text"
+    },
+    "white_black_theme1": {
+        "message": "#B0B0B0 background with white text"
+    },
+    "white_black_theme2": {
+        "message": "#808080 background with white text"
+    },
+    "white_black_theme3": {
+        "message": "#505050 background with white text"
+    },
+    "white_black_theme4": {
+        "message": "#202020 background with white text"
+    },
+    "theme_label": {
+        "message": "Editor theme:"
+    },
+    "test_editormd_textarea": {
+        "message": "# Here are some theme settings"
     }
 }

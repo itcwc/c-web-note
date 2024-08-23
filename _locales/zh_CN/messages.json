@@ -85,7 +85,29 @@
     },
     "warning1": {
         "message": "请先打开笔记编辑器~"
+    },
+    "background_color_label": {
+        "message": "选择背景颜色："
+    },
+    "white_black_theme": {
+        "message": "白色背景 黑色字体"
+    },
+    "white_black_theme1": {
+        "message": "#B0B0B0 白色字体"
+    },
+    "white_black_theme2": {
+        "message": "#808080 白色字体"
+    },
+    "white_black_theme3": {
+        "message": "#505050 白色字体"
+    },
+    "white_black_theme4": {
+        "message": "#202020 白色字体"
+    },
+    "theme_label": {
+        "message": "编辑器主题："
+    },
+    "test_editormd_textarea": {
+        "message": "# 这里是一些主题设置"
     }
-
-
 }

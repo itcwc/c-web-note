@@ -4,37 +4,74 @@ $(function () {
   // 编辑器初始化
   const params = new URLSearchParams(window.location.search);
 
+  chrome.storage.sync.get(
+    ["theme", "previewTheme", "editorTheme"],
+    function (result) {
+      var theme = result.theme || "dark";
+      var previewTheme = result.previewTheme || "dark";
+      var editorTheme = result.editorTheme || "pastel-on-dark";
 
-  editor = editormd("editor", {
-    height: params.get("height") * 0.9,
-    path: "editormd/lib/",
-    toolbarIcons: function () {
-      return [
-        "bold",
-        "italic",
-        "pagebreak",
-        "|",
-        "h1",
-        "h2",
-        "h3",
-        "|",
-        "hr",
-        "quote",
-        "list-ul",
-        "list-ol",
-        "|",
-        "link",
-        "image",
-        "code",
-        "preformatted-text",
-        "code-block",
-        "table",
-        "datetime",
-      ];
-    },
-    saveHTMLToTextarea: true,
-  });
-  
+      editor = editormd("editor", {
+        height: params.get("height") * 0.9,
+        theme: theme,
+        previewTheme: previewTheme,
+        editorTheme: editorTheme,
+        path: "editormd/lib/",
+        toolbarIcons: function () {
+          return [
+            "bold",
+            "italic",
+            "pagebreak",
+            "|",
+            "h1",
+            "h2",
+            "h3",
+            "|",
+            "hr",
+            "quote",
+            "list-ul",
+            "list-ol",
+            "|",
+            "link",
+            "image",
+            "code",
+            "preformatted-text",
+            "code-block",
+            "table",
+            "datetime",
+          ];
+        },
+        saveHTMLToTextarea: true,
+      });
+
+      // themeSelect(
+      //   "editormd-theme-select",
+      //   editormd.themes,
+      //   "theme",
+      //   function ($this, theme) {
+      //     testEditor.setTheme(theme);
+      //   }
+      // );
+
+      // themeSelect(
+      //   "editor-area-theme-select",
+      //   editormd.editorThemes,
+      //   "editorTheme",
+      //   function ($this, theme) {
+      //     testEditor.setCodeMirrorTheme(theme);
+      //   }
+      // );
+
+      // themeSelect(
+      //   "preview-area-theme-select",
+      //   editormd.previewThemes,
+      //   "previewTheme",
+      //   function ($this, theme) {
+      //     testEditor.setPreviewTheme(theme);
+      //   }
+      // );
+    }
+  );
 
   // 加载语言文件
   chrome.storage.sync.get("language", (result) => {
@@ -243,3 +280,18 @@ function createNotification(notificationType, messageKey) {
 document.getElementById("settings-btn").addEventListener("click", () => {
   chrome.runtime.openOptionsPage();
 });
+
+// 获取 URL 参数中的主题颜色
+const params = new URLSearchParams(window.location.search);
+const themeColor = params.get("themeColor") || "white";
+const textColor = params.get("textColor") || "black";
+
+console.log(themeColor, textColor);
+
+// 动态应用主题颜色
+document.getElementById("theme-style").innerHTML = `
+            body {
+                background-color: ${themeColor};
+                color: ${textColor};
+            }
+        `;

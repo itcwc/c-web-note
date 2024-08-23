@@ -29,12 +29,59 @@ document.addEventListener("DOMContentLoaded", function () {
         settingText.innerText = messages.setting.message;
         currentLanguageText.innerText = messages["current_language"].message;
         selectLanguageText.innerText = messages["select_language"].message;
+
+        document.getElementById("background_color_label").textContent =
+          messages.background_color_label.message;
+        document.getElementById("white_black_theme").textContent =
+          messages.white_black_theme.message;
+        document.getElementById("white_black_theme1").textContent =
+          messages.white_black_theme1.message;
+        document.getElementById("white_black_theme2").textContent =
+          messages.white_black_theme2.message;
+        document.getElementById("white_black_theme3").textContent =
+          messages.white_black_theme3.message;
+        document.getElementById("white_black_theme4").textContent =
+          messages.white_black_theme4.message;
+        document.getElementById("theme_label").textContent =
+          messages.theme_label.message;
+        document.getElementById("test_editormd_textarea").textContent =
+          messages.test_editormd_textarea.message;
       })
       .catch((error) => console.error("Error loading language file:", error));
   }
 });
 
-// 主题设置js
+$(document).ready(function () {
+  $('input[name="background-color"]').change(function () {
+    const selectedColor = $(this).val();
+    const textColor = $(this).data("text-color");
+
+    chrome.storage.sync.set(
+      {
+        backgroundColor: selectedColor,
+        textColor: textColor,
+      },
+      function () {
+        console.log(
+          "Background color and text color have been set to:",
+          selectedColor,
+          textColor
+        );
+      }
+    );
+  });
+
+  // 恢复之前的设置
+  chrome.storage.sync.get(["backgroundColor", "textColor"], function (result) {
+    if (result.backgroundColor && result.textColor) {
+      $(
+        `input[name="background-color"][value="${result.backgroundColor}"]`
+      ).prop("checked", true);
+    }
+  });
+});
+
+// 编辑器主题设置js
 var testEditor;
 function themeSelect(id, themes, lsKey, callback) {
   var select = $("#" + id);

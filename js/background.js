@@ -4,8 +4,8 @@ function updateContextMenu(language) {
   chrome.contextMenus.removeAll(() => {
     // 通过 fetch 加载对应语言的消息文件
     fetch(chrome.runtime.getURL(`_locales/${language}/messages.json`))
-      .then(response => response.json())
-      .then(messages => {
+      .then((response) => response.json())
+      .then((messages) => {
         const getLocalizedText = (key) => messages[key]?.message || key;
 
         chrome.contextMenus.create({
@@ -29,28 +29,25 @@ function updateContextMenu(language) {
           contexts: ["image"],
         });
       })
-      .catch(error => console.error('Error loading language file:', error));
+      .catch((error) => console.error("Error loading language file:", error));
   });
 }
 
 // 初始创建菜单
 chrome.runtime.onInstalled.addListener(() => {
-  chrome.storage.sync.get('language', (result) => {
-    const currentLanguage = result.language || 'en'; // 默认语言为 'en'
+  chrome.storage.sync.get("language", (result) => {
+    const currentLanguage = result.language || "en"; // 默认语言为 'en'
     updateContextMenu(currentLanguage);
   });
 });
 
 // 监听配置文件变化
 chrome.storage.onChanged.addListener((changes, area) => {
-  if (area === 'sync' && changes.language) {
-    const newLanguage = changes.language.newValue || 'en';
+  if (area === "sync" && changes.language) {
+    const newLanguage = changes.language.newValue || "en";
     updateContextMenu(newLanguage);
   }
 });
-
-
-
 
 chrome.contextMenus.onClicked.addListener((info, tab) => {
   const selectedText = info.selectionText;
@@ -60,28 +57,44 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
       const width = Math.round(currentWindow.width * 0.3);
       const height = Math.round(currentWindow.height * 0.5);
 
-      chrome.windows.create(
-        {
-          url: `note_editor.html?width=${encodeURIComponent(
-            width
-          )}&height=${encodeURIComponent(height)}`,
-          type: "popup",
-          width: width,
-          height: height,
-          left: Math.round((currentWindow.width - width) / 2),
-          top: Math.round((currentWindow.height - height) / 2),
-        },
-        (newWindow) => {
-          // 保存窗口ID到 chrome.storage
-          chrome.storage.local.set({ editorWindowId: newWindow.id });
+      chrome.storage.sync.get(
+        ["backgroundColor", "textColor"],
+        function (result) {
+          var themeColor = result.backgroundColor || "white";
+          var textColor = result.textColor || "black";
 
-          // 监听窗口关闭事件
-          chrome.windows.onRemoved.addListener(function (windowId) {
-            if (windowId === newWindow.id) {
-              // 窗口关闭时删除存储的ID
-              chrome.storage.local.remove("editorWindowId");
+          console.log(themeColor, textColor);
+          
+
+          var themeUrl = `&themeColor=${encodeURIComponent(
+            themeColor
+          )}&textColor=${encodeURIComponent(textColor)}`;
+
+          chrome.windows.create(
+            {
+              url:
+                `note_editor.html?width=${encodeURIComponent(
+                  width
+                )}&height=${encodeURIComponent(height)}` + themeUrl,
+              type: "popup",
+              width: width,
+              height: height,
+              left: Math.round((currentWindow.width - width) / 2),
+              top: Math.round((currentWindow.height - height) / 2),
+            },
+            (newWindow) => {
+              // 保存窗口ID到 chrome.storage
+              chrome.storage.local.set({ editorWindowId: newWindow.id });
+
+              // 监听窗口关闭事件
+              chrome.windows.onRemoved.addListener(function (windowId) {
+                if (windowId === newWindow.id) {
+                  // 窗口关闭时删除存储的ID
+                  chrome.storage.local.remove("editorWindowId");
+                }
+              });
             }
-          });
+          );
         }
       );
     });
@@ -98,30 +111,43 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
       const width = Math.round(currentWindow.width * 0.3);
       const height = Math.round(currentWindow.height * 0.5);
 
-      chrome.windows.create(
-        {
-          url: `note_editor.html?text=${encodeURIComponent(
-            selectedText
-          )}&width=${encodeURIComponent(width)}&height=${encodeURIComponent(
-            height
-          )}`,
-          type: "popup",
-          width: width,
-          height: height,
-          left: Math.round((currentWindow.width - width) / 2),
-          top: Math.round((currentWindow.height - height) / 2),
-        },
-        (newWindow) => {
-          // 保存窗口ID到 chrome.storage
-          chrome.storage.local.set({ editorWindowId: newWindow.id });
+      chrome.storage.sync.get(
+        ["backgroundColor", "textColor"],
+        function (result) {
+          var themeColor = result.backgroundColor || "white";
+          var textColor = result.textColor || "black";
 
-          // 监听窗口关闭事件
-          chrome.windows.onRemoved.addListener(function (windowId) {
-            if (windowId === newWindow.id) {
-              // 窗口关闭时删除存储的ID
-              chrome.storage.local.remove("editorWindowId");
+          var themeUrl = `&themeColor=${encodeURIComponent(
+            themeColor
+          )}&textColor=${encodeURIComponent(textColor)}`;
+
+          chrome.windows.create(
+            {
+              url:
+                `note_editor.html?text=${encodeURIComponent(
+                  selectedText
+                )}&width=${encodeURIComponent(
+                  width
+                )}&height=${encodeURIComponent(height)}` + themeUrl,
+              type: "popup",
+              width: width,
+              height: height,
+              left: Math.round((currentWindow.width - width) / 2),
+              top: Math.round((currentWindow.height - height) / 2),
+            },
+            (newWindow) => {
+              // 保存窗口ID到 chrome.storage
+              chrome.storage.local.set({ editorWindowId: newWindow.id });
+
+              // 监听窗口关闭事件
+              chrome.windows.onRemoved.addListener(function (windowId) {
+                if (windowId === newWindow.id) {
+                  // 窗口关闭时删除存储的ID
+                  chrome.storage.local.remove("editorWindowId");
+                }
+              });
             }
-          });
+          );
         }
       );
     });

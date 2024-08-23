@@ -9,28 +9,48 @@ document.getElementById("new-note").addEventListener("click", () => {
     const width = Math.round(currentWindow.width * 0.3);
     const height = Math.round(currentWindow.height * 0.5);
 
-    chrome.windows.create(
-      {
-        url: `note_editor.html?width=${encodeURIComponent(
-          width
-        )}&height=${encodeURIComponent(height)}`,
-        type: "popup",
-        width: width,
-        height: height,
-        left: Math.round((currentWindow.width - width) / 2),
-        top: Math.round((currentWindow.height - height) / 2),
-      },
-      (newWindow) => {
-        // 保存窗口ID到 chrome.storage
-        chrome.storage.local.set({ editorWindowId: newWindow.id });
+    var themeColor = "#505050";
+    var textColor = "#FFFFFF";
 
-        // 监听窗口关闭事件
-        chrome.windows.onRemoved.addListener(function (windowId) {
-          if (windowId === newWindow.id) {
-            // 窗口关闭时删除存储的ID
-            chrome.storage.local.remove("editorWindowId");
+    var themeUrl = `&themeColor=${encodeURIComponent(
+      themeColor
+    )}&textColor=${encodeURIComponent(textColor)}`;
+
+    chrome.storage.sync.get(
+      ["backgroundColor", "textColor"],
+      function (result) {
+        var themeColor = result.backgroundColor || "white";
+        var textColor = result.textColor || "black";
+
+        var themeUrl = `&themeColor=${encodeURIComponent(
+          themeColor
+        )}&textColor=${encodeURIComponent(textColor)}`;
+
+        chrome.windows.create(
+          {
+            url:
+              `note_editor.html?width=${encodeURIComponent(
+                width
+              )}&height=${encodeURIComponent(height)}` + themeUrl,
+            type: "popup",
+            width: width,
+            height: height,
+            left: Math.round((currentWindow.width - width) / 2),
+            top: Math.round((currentWindow.height - height) / 2),
+          },
+          (newWindow) => {
+            // 保存窗口ID到 chrome.storage
+            chrome.storage.local.set({ editorWindowId: newWindow.id });
+
+            // 监听窗口关闭事件
+            chrome.windows.onRemoved.addListener(function (windowId) {
+              if (windowId === newWindow.id) {
+                // 窗口关闭时删除存储的ID
+                chrome.storage.local.remove("editorWindowId");
+              }
+            });
           }
-        });
+        );
       }
     );
   });
@@ -56,15 +76,29 @@ document.getElementById("forced-copy").addEventListener("click", () => {
         const width = Math.round(screen.width * 0.3);
         const height = Math.round(screen.height * 0.5);
 
-        // 创建新窗口并展示内容
-        chrome.windows.create({
-          url: `copy_content.html?text=${encodeURIComponent(pageText)}`,
-          type: "popup",
-          width: width,
-          height: height,
-          left: Math.round((screen.width - width) / 2),
-          top: Math.round((screen.height - height) / 2),
-        });
+        chrome.storage.sync.get(
+          ["backgroundColor", "textColor"],
+          function (result) {
+            var themeColor = result.backgroundColor || "white";
+            var textColor = result.textColor || "black";
+
+            var themeUrl = `&themeColor=${encodeURIComponent(
+              themeColor
+            )}&textColor=${encodeURIComponent(textColor)}`;
+
+            // 创建新窗口并展示内容
+            chrome.windows.create({
+              url:
+                `copy_content.html?text=${encodeURIComponent(pageText)}` +
+                themeUrl,
+              type: "popup",
+              width: width,
+              height: height,
+              left: Math.round((screen.width - width) / 2),
+              top: Math.round((screen.height - height) / 2),
+            });
+          }
+        );
       }
     );
   });

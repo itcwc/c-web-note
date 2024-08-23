@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>c note 设置</title>
+    <link rel="stylesheet" href="css/options.css">
     <link rel="stylesheet" href="editormd/css/editormd.css" />
 </head>
 
@@ -22,9 +23,43 @@
     </select>
     <hr>
     <!-- 主题设置 -->
+    <div class="background-settings">
+        <p id="background_color_label">选择背景颜色：</p>
+        <label>
+            <input type="radio" name="background-color" value="white">
+            <span style="background-color: white; color: black; padding: 5px; border: 1px solid #000;" id="white_black_theme">白色背景 黑色字体</span>
+        </label><br><br>
+
+        <label>
+            <input type="radio" name="background-color" value="#B0B0B0">
+            <span style="background-color: #B0B0B0; color: white; padding: 5px;  border: 1px solid #000;" id="white_black_theme1">#B0B0B0
+                白色字体</span>
+        </label><br><br>
+
+        <label>
+            <input type="radio" name="background-color" value="#808080">
+            <span style="background-color: #808080; color: white; padding: 5px;  border: 1px solid #000;" id="white_black_theme2">#808080
+                白色字体</span>
+        </label><br><br>
+
+        <label>
+            <input type="radio" name="background-color" value="#505050">
+            <span style="background-color: #505050; color: white; padding: 5px;  border: 1px solid #000;" id="white_black_theme3">#505050
+                白色字体</span>
+        </label><br><br>
+
+        <label>
+            <input type="radio" name="background-color" value="#202020">
+            <span style="background-color: #202020; color: white; padding: 5px;  border: 1px solid #000;" id="white_black_theme4">#202020
+                白色字体</span>
+        </label>
+    </div><br>
+    <hr>
+
     <div class="themes">
-        <p>主题：
-            <select id="editormd-theme-select">
+        <p id="theme_label">编辑器主题：</p>
+        <p>
+            <select id="editormd_theme_select">
                 <option selected="selected" value="">select Editor.md themes</option>
             </select>
             <select id="editor-area-theme-select">
@@ -36,7 +71,7 @@
         </p>
     </div>
     <div id="test-editormd">
-        <textarea style="display:none;"># 这里是一些主题设置</textarea>
+        <textarea style="display:none;" id="test_editormd_textarea"># 这里是一些主题设置</textarea>
     </div>
     <hr>
 
