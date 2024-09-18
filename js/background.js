@@ -64,7 +64,6 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
           var textColor = result.textColor || "black";
 
           console.log(themeColor, textColor);
-          
 
           var themeUrl = `&themeColor=${encodeURIComponent(
             themeColor
@@ -176,18 +175,33 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
   if (info.menuItemId === "save-image-to-notes") {
     const imageUrl = info.srcUrl;
     const pageUrl = info.pageUrl;
-    chrome.storage.local.get("editorWindowId", (result) => {
-      if (!result.editorWindowId) {
-        createNotification("warning", "warning1");
-      }
-      return;
-    });
 
-    // 发送消息到 note_editor.html 以保存图片信息
-    chrome.runtime.sendMessage({
-      action: "saveImageToNote",
-      imageUrl: imageUrl,
-      pageUrl: pageUrl,
+    // 从 chrome.storage.local 获取 editorWindowId
+    chrome.storage.local.get("editorWindowId", (result) => {
+      const editorWindowId = result.editorWindowId;
+
+      // 如果没有 editorWindowId，显示警告并退出
+      if (!editorWindowId) {
+        createNotification("warning", "warning1");
+        return;
+      }
+
+      // 检查窗口是否存在
+      chrome.windows.get(editorWindowId, (window) => {
+        if (chrome.runtime.lastError || !window) {
+          // 如果窗口不存在，移除存储的 ID 并通知用户
+          chrome.storage.local.remove("editorWindowId");
+          createNotification("warning", "warning1");
+          return;
+        }
+
+        // 如果窗口存在，发送消息到 note_editor.html 以保存图片信息
+        chrome.runtime.sendMessage({
+          action: "saveImageToNote",
+          imageUrl: imageUrl,
+          pageUrl: pageUrl,
+        });
+      });
     });
   }
 });
