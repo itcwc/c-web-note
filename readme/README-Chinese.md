@@ -15,7 +15,7 @@
 * 2. 打开谷歌浏览器
 * 3. 点击设置->扩展程序->打开【开发者模式】->加载已解压的扩展程序->选择下载的文件
 * 4. 完成安装
-* 5. or [Edge browser](https://microsoftedge.microsoft.com/addons/detail/c-note-add-web-page-conte/bdcofhehaohhfckpelmkkpmigoemecpp)
+* 5. 或者 [Edge 浏览器](https://microsoftedge.microsoft.com/addons/detail/c-note-add-web-page-conte/bdcofhehaohhfckpelmkkpmigoemecpp)
 
 
 #### 截图

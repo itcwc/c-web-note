@@ -15,7 +15,7 @@
 * 2. Open Google Chrome.
 * 3. Go to Settings -> Extensions -> Enable **Developer mode** -> Load unpacked extension -> Select the downloaded files.
 * 4. Installation complete.
-* 5. or [Edge browser](https://microsoftedge.microsoft.com/addons/detail/c-note-add-web-page-conte/bdcofhehaohhfckpelmkkpmigoemecpp)
+* 5. Or [Edge browser](https://microsoftedge.microsoft.com/addons/detail/c-note-add-web-page-conte/bdcofhehaohhfckpelmkkpmigoemecpp)
 
 #### Screenshots:
 * Add text to notes  
