@@ -1,7 +1,7 @@
 ### itcwc-note[网页笔记插件]
 
 <p align="center">
-    【<a href="/README.md">English</a>   |   Chinese】
+    【<a href="/README.md">英文</a>   |   中文】
 </p>
 
 #### 功能介绍：
