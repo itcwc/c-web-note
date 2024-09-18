@@ -1,7 +1,7 @@
 ### itcwc-note[Web Note Extension]
 
 <p align="center">
-    【English   |   <a href="readme/README-Chinese.md">Chinese</a>】
+    【English   |   <a href="readme/README-Chinese.md">中文</a>】
 </p>
 
 #### Features:
