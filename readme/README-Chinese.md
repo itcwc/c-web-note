@@ -1,7 +1,7 @@
 ### itcwc-note[网页笔记插件]
 
 <p align="center">
-    【<a href="/README.md">English</a>   | Chinese】
+    【<a href="/README.md">English</a>   |   Chinese】
 </p>
 
 #### 功能介绍：
@@ -15,19 +15,21 @@
 * 2. 打开谷歌浏览器
 * 3. 点击设置->扩展程序->打开【开发者模式】->加载已解压的扩展程序->选择下载的文件
 * 4. 完成安装
+* 5. or [Edge browser](https://microsoftedge.microsoft.com/addons/detail/c-note-add-web-page-conte/bdcofhehaohhfckpelmkkpmigoemecpp)
+
 
 #### 截图
 * 添加文字到笔记
-  ![添加文字到笔记](../images/en/e1.png)
+  ![添加文字到笔记](../images/zh/c1.png)
 
 * 编辑文字
-  ![编辑文字](../images/en/e2.png)
+  ![编辑文字](../images/zh/c2.png)
 
 * 添加图片到笔记
-  ![添加图片到笔记](../images/en/e3.png)
+  ![添加图片到笔记](../images/zh/c3.png)
 
 * 编辑图片
-  ![编辑图片](../images/en/e4.png)
+  ![编辑图片](../images/zh/c4.png)
 
 * 设置
-  ![设置](../images/en/e5.png)
+  ![设置](../images/zh/c5.png)
