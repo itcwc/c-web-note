@@ -1,26 +1,33 @@
-### itcwc-note[谷歌网页笔记插件]
+### itcwc-note[Web Note Extension]
 
-* 功能介绍：
-  * 欢迎使用 c note 扩展程序！
-  * 此扩展程序允许您在浏览网页时选中内容并将其添加到笔记中。
-  * 右键单击选中的内容，然后选择“添加内容到新笔记”即可将内容添加到笔记中。
-  * 同时支持导出：`.md、.pdf、.html、.docx、.txt`或保存到线上【支持云同步，待开发~】
+<p align="center">
+    【English   | <a href="readme/README-Chinese.md">Chinese</a>】
+</p>
 
-* 安装方法：
-  * 下载到本地
-  * 打开谷歌浏览器
-  * 点击设置->扩展程序->打开【开发者模式】->加载已解压的扩展程序->选择下载的压缩包
-  * 完成安装
+#### Features:
+* Welcome to the **C Note** extension!
+* This extension allows you to select content while browsing the web and add it to your notes.
+* Simply right-click on the selected content and choose "Add content to a new note" to save it.
+* Supports exporting to `.md, .pdf, .html, .docx, .txt` formats or saving online with cloud sync support (coming soon~).
 
-* 截图
-  * 侧键
-  
-    ![侧键](./images/readme1.png)
+#### Installation Instructions:
+* 1. Download the extension locally.
+* 2. Open Google Chrome.
+* 3. Go to Settings -> Extensions -> Enable **Developer mode** -> Load unpacked extension -> Select the downloaded files.
+* 4. Installation complete.
 
-  * 编辑器
+#### Screenshots:
+* Add text to notes  
+  ![Add text to notes](./images/en/e1.png)
 
-    ![编辑器](./images/readme2.png)
+* Editor  
+  ![Editor](./images/en/e2.png)
 
-  * 基础介绍
-  
-    ![基础介绍](./images/readme3.png)
+* Add image to notes  
+  ![Add image to notes](./images/en/e3.png)
+
+* Image in editor  
+  ![Image in editor](./images/en/e4.png)
+
+* Settings  
+  ![Settings](./images/en/e5.png)
