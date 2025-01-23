@@ -124,13 +124,13 @@ function themeSelect(id, themes, lsKey, callback) {
 $(function () {
   testEditor = editormd("test-editormd", {
     height: 200,
-    theme: localStorage.theme ? localStorage.theme : "dark",
+    theme: localStorage.theme ? localStorage.theme : "default",
     previewTheme: localStorage.previewTheme
       ? localStorage.previewTheme
-      : "dark",
+      : "default",
     editorTheme: localStorage.editorTheme
       ? localStorage.editorTheme
-      : "pastel-on-dark",
+      : "default",
     path: "editormd/lib/",
     toolbarIcons: function () {
       return [
