@@ -60,7 +60,8 @@
         "message": "导出"
     },
     "user_manual": {
-        "message": "Markdown笔记使用指南"
+        "message": "Markdown笔记使用指南",
+        "url": "https://www.markdown.cn/docs/cheat-sheet"
     },
     "in_development": {
         "message": "开发中敬请期待V1.0"

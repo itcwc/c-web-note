@@ -60,7 +60,8 @@
         "message": "Export"
     },
     "user_manual": {
-        "message": "Markdown Note User Guide"
+        "message": "Markdown Note User Guide",
+        "url": "https://www.markdownguide.org/basic-syntax/"    
     },
     "in_development": {
         "message": "In Development _ Coming Soon V1.0"

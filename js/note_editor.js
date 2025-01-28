@@ -247,6 +247,9 @@ function updateContent(language) {
         messages.save_to_cloud.message;
       document.getElementById("user_manual").textContent =
         messages.user_manual.message;
+
+      // 新增：更新链接的 URL
+      document.getElementById("user_manual").href = messages.user_manual.url;
     })
     .catch((error) => console.error("Error loading language file:", error));
 }
