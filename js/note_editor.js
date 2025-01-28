@@ -154,24 +154,29 @@ document.addEventListener("DOMContentLoaded", () => {
         break;
 
       case "pdf":
-        // 导出PDF文件
         const { jsPDF } = window.jspdf || {};
         if (!jsPDF) {
           console.error("jsPDF library is not loaded properly.");
           return;
         }
-        const doc = new jsPDF();
+
+        // 使用 html2canvas 渲染 DOM
         const PDFTempDiv = document.createElement("div");
         PDFTempDiv.innerHTML = renderedContent;
+        PDFTempDiv.style.fontFamily = "SimHei"; // 确保有中文字体支持
 
-        doc.html(PDFTempDiv, {
-          callback: function (doc) {
-            doc.save("note.pdf");
-          },
-          x: 10,
-          y: 10,
-          width: 190, // mm
-          windowWidth: 650, // 渲染器使用的窗口宽度
+        document.body.appendChild(PDFTempDiv); // 临时添加到 DOM
+        html2canvas(PDFTempDiv, { scale: 2 }).then((canvas) => {
+          document.body.removeChild(PDFTempDiv); // 渲染后移除
+
+          const imgData = canvas.toDataURL("image/png");
+          const doc = new jsPDF();
+
+          const imgWidth = 190; // mm
+          const pageHeight = (canvas.height * imgWidth) / canvas.width;
+
+          doc.addImage(imgData, "PNG", 10, 10, imgWidth, pageHeight);
+          doc.save("note.pdf");
         });
         break;
 
@@ -289,7 +294,7 @@ const params = new URLSearchParams(window.location.search);
 const themeColor = params.get("themeColor") || "white";
 const textColor = params.get("textColor") || "black";
 
-console.log(themeColor, textColor);
+// console.log(themeColor, textColor);
 
 // 动态应用主题颜色
 document.getElementById("theme-style").innerHTML = `
