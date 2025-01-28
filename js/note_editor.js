@@ -7,9 +7,9 @@ $(function () {
   chrome.storage.sync.get(
     ["theme", "previewTheme", "editorTheme"],
     function (result) {
-      var theme = result.theme || "dark";
-      var previewTheme = result.previewTheme || "dark";
-      var editorTheme = result.editorTheme || "pastel-on-dark";
+      var theme = result.theme || "default";
+      var previewTheme = result.previewTheme || "default";
+      var editorTheme = result.editorTheme || "default";
 
       editor = editormd("editor", {
         height: params.get("height") * 0.9,
